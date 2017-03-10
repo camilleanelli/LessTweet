@@ -1,0 +1,14 @@
+<div class="text-center">
+	<h1>Should I follow?</h1>
+
+</div>
+<div class="row">
+
+  <div class="mx-auto text-center">
+    <%= simple_form_for :user, url: page_path, :method => :get do |f| %>
+      <%= f.input :screen_name, label: false, placeholder: "Put the name here" %>
+      <%= f.button :submit, "See the user", class:"btn btn-outline-success" %>
+    <% end %>
+  </div>
+</div>
+
