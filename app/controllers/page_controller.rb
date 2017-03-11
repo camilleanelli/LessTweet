@@ -19,14 +19,18 @@ class PageController < ApplicationController
 		@input = params["user"]["screen_name"]
 		if @input != "" 
 			@user = @client.user(@input)
-			@tweets = @client.user_timeline(@user)
+			@tweets = @client.user_timeline(@user, count: 200)
+
 			@tweets_count = @tweets.count
 			@account_creation = @user.created_at
 			
-
+			puts @tweets.first.created_at
 			puts "tweets of last 30 days---------------"
 			@tweets_last_30_days = check_tweet_last_30_days(@tweets)
-			puts @tweets_last_30_days
+			
+			puts "Hours of tweets for the last 30 days"
+
+			puts check_tweet_hours(@tweets).inspect
 
 			puts "hash tweets per days for the last 30 days-----------"
 			
@@ -79,6 +83,20 @@ class PageController < ApplicationController
 			end
 		end
 		tweets_last_thirty_days
+	end
+
+
+	def check_tweet_hours(tweets)
+		date_today = Date.today
+		last_thirty_days = date_today - 30
+		hours = []
+		tweets.each do |tweet|
+			tweet_date = tweet.created_at.strftime("%Y-%m-%d")
+			if Date.parse(tweet_date) >= last_thirty_days 
+				hours << tweet.created_at.strftime("%H:%M %P")
+			end
+		end
+		hours
 	end
 
 end

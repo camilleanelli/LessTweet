@@ -1,38 +1,46 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-sm-8">
-      <div class="card" style="background-color: #03C9A9; border-color: #03C9A9;">
+    <div class="col-md-6">
+      <div class="card margin-card">
         <div class="card-block">
           <div class="row">
-            <div class="col-sm-6">
-              <p>Nom : <%= @user.screen_name %></p>
-              <p>Creation du compte: <%= @account_creation.strftime("%Y-%m-%d") %></p>
-              <p>Number of tweets: <%= @tweets.count %></p>
+            <div class="col-md-6">
+              <p>Username : <%= @user.screen_name %></p>
+              <p>Account created at: <%= @account_creation.strftime("%Y-%m-%d") %></p>
+              <p>Nomber of tweets: <%= @tweets_last_30_days.count %></p>
+             
               
             </div>
-            <div class="col-sm-6 text-right">
+            <div class="col-md-6 text-right">
               <%= image_tag(@user.profile_image_url(size = :original).to_s, size: "200", class:"center") %> 
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <br>
-  <br>
-  <br>
-  <div class="row">
-
-    <h1>Tweets on the last 30 days</h1>
-    <div class="card card-outline-danger text-center">
-      <div class="card-block graphique">
-        <span class="dynamicbar"></span>
+    <div class="col-md-6">
+      <div class="card margin-card">
+        <div class="card-block graphique">
+          
+          <% if @tweets_last_30_days.empty? %>
+            <h1>This user is not a serial tweeter !</h1>
+          <% elsif @tweets_last_30_days.count == 30 %>
+            <h1>This person may be a serial tweeter ...</h1>
+          <% else %>
+            <h1>Tweets on the last 30 days</h1>
+            <span class="dynamicbar"></span>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
+
+ 
+    
 </div>
+    
+
 
 <script type="text/javascript">
 $(function() {
@@ -47,7 +55,7 @@ $(function() {
         '6:': '#CF000F'
     })
    	/* The second argument gives options such as chart type */
-    $('.dynamicbar').sparkline(myvalues, {type: 'bar', height: '200px', barWidth: '30px', colorMap: range_map} );
+    $('.dynamicbar').sparkline(myvalues, {type: 'bar', height: '200px', barWidth: '15px', colorMap: range_map, tooltipFormat: $.spformat('{{value}}', 'tooltip-class')} );
 
     
 });
