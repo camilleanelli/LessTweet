@@ -1,49 +1,68 @@
 <div class="container">
 
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card margin-card">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-6">
+              <p>Username : <%= @user.screen_name %></p>
+              <p>Account created at: <%= @account_creation.strftime("%Y-%m-%d") %></p>
+              <p>Nomber of tweets: <%= @tweets_last_20_days.count %></p>
+              <p><% unless @repeted_hours.empty? %>
+                    <% @repeted_hours.each do |hour| %>
+                      Repeted hours: <%= hour %>
+                    <% end %>
+                  <% end %>
+              </p>
+             
+              
+            </div>
+            <div class="col-md-6 text-right">
+              <%= image_tag(@user.profile_image_url(size = :original).to_s, size: "200", class:"center") %> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card margin-card">
+        <div class="card-block graphique">
+          
+          <% if @tweets_last_20_days.empty? %>
+            <h1>No tweets during the last 20 days ! </h1>
+          <% elsif @tweets_last_20_days.count == 30 %>
+            <h1>This person may be a serial tweeter ...</h1>
+             <span class="dynamicbar"></span>
+          <% else %>
+            <h1>Tweets on the last 20 days</h1>
+            <span class="dynamicbar"></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-	<div class="col-sm-8">
-		<div class="card" style="background-color: #03C9A9; border-color: #03C9A9;">
-  		<div class="card-block">
-  			<div class="row">
-  		 		<div class="col-sm-6">
-  		 			<p>Nom : <%= @user.screen_name %></p>
-  		 			<p>Creation du compte: <%= @create %></p>
-  		 			<p>Number of tweets: <%= @tweets.count %></p>
-  		 			<p>Tweets / day : </p>
-  		 		</div>
-    			<div class="col-sm-6 text-right">
-						<%= image_tag(@user.profile_image_url(size = :original).to_s, size: "200", class:"center") %>	
-					</div>
-  			</div>
-  		</div>
-		</div>
-		<br>
-		<br>
-		<br>
-		<div class="card" style="background-color: #03C9A9; border-color: #03C9A9;">
-  		<div class="card-block">
-  			
-  		 		<h1>Graphique</h1>
-  	
-						<p>
-						Bar chart with inline data: <span class="inlinebar">1,3,4,5,3,5</span>
-					</p>
-
-  			
-  		</div>
-		</div>
-	</div>
-
+ 
+    
 </div>
+    
 
 
 <script type="text/javascript">
 $(function() {
      /* Sparklines can also take their values from the first argument 
     passed to the sparkline() function */
-    var myvalues = [10,8,5,7,4,4,1];
+    var myvalues = <%= @array_of_values %>;
+    // var myvalues = [10, 10, 5, 6]
+    var range_map = $.range_map({
+        1: '#F5D76E',
+        '2:3': '#87D37C',
+        '4:5': '#F89406',
+        '6:': '#CF000F'
+    })
    	/* The second argument gives options such as chart type */
-    $('.dynamicbar').sparkline(myvalues, {type: 'bar', barColor: 'green'} );
+    $('.dynamicbar').sparkline(myvalues, {type: 'bar', height: '200px', barWidth: '15px', colorMap: range_map, tooltipFormat: $.spformat('{{value}}', 'tooltip-class')} );
 
     
 });
