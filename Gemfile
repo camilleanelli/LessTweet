@@ -14,7 +14,7 @@ gem 'rails', '~> 5.0.1'
 gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'simple_form'
 gem 'font-awesome-sass', '~> 4.7.0'
-gem 'sqlite3'
+gem 'pg'
 gem 'groupdate'
 
 gem 'puma', '~> 3.0'
