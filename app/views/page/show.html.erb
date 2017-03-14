@@ -8,7 +8,13 @@
             <div class="col-md-6">
               <p>Username : <%= @user.screen_name %></p>
               <p>Account created at: <%= @account_creation.strftime("%Y-%m-%d") %></p>
-              <p>Nomber of tweets: <%= @tweets_last_30_days.count %></p>
+              <p>Nomber of tweets: <%= @tweets_last_20_days.count %></p>
+              <p><% unless @repeted_hours.empty? %>
+                    <% @repeted_hours.each do |hour| %>
+                      Repeted hours: <%= hour %>
+                    <% end %>
+                  <% end %>
+              </p>
              
               
             </div>
@@ -23,12 +29,13 @@
       <div class="card margin-card">
         <div class="card-block graphique">
           
-          <% if @tweets_last_30_days.empty? %>
-            <h1>This user is not a serial tweeter !</h1>
-          <% elsif @tweets_last_30_days.count == 30 %>
+          <% if @tweets_last_20_days.empty? %>
+            <h1>No tweets during the last 20 days ! </h1>
+          <% elsif @tweets_last_20_days.count == 30 %>
             <h1>This person may be a serial tweeter ...</h1>
+             <span class="dynamicbar"></span>
           <% else %>
-            <h1>Tweets on the last 30 days</h1>
+            <h1>Tweets on the last 20 days</h1>
             <span class="dynamicbar"></span>
           <% end %>
         </div>

@@ -20,39 +20,48 @@ class PageController < ApplicationController
 		if @input != "" 
 			@user = @client.user(@input)
 			@tweets = @client.user_timeline(@user, count: 200)
-
-			@tweets_count = @tweets.count
 			@account_creation = @user.created_at
-			
-			puts @tweets.first.created_at
-			puts "tweets of last 30 days---------------"
-			@tweets_last_30_days = check_tweet_last_30_days(@tweets)
-			
-			puts "Hours of tweets for the last 30 days"
 
-			puts check_tweet_hours(@tweets).inspect
-
-			puts "hash tweets per days for the last 30 days-----------"
+			# "tweets of last 20 days---------------"
+			@tweets_last_20_days = check_tweet_last_20_days(@tweets)
+		
 			
-			@tweet_count_per_day = Hash[ @tweets_last_30_days.group_by_day { |u| u.created_at.dup.utc }.map { |k, v| ["#{k}", v.size] } ]
-			puts @tweet_count_per_day.inspect
+			# "Hours of tweets for the last 20 days"
+			hours = check_tweet_hours(@tweets)
+			hash_hours = Hash.new(0)
+			hours.each { |e| hash_hours[e] += 1 }
+			puts hash_hours
 
-			puts "hash of last 30 days--------------"
+			# repeted hours > 2
+				@repeted_hours = []
+				hash_hours.each do |k, v|
+					@repeted_hours << hash_hours.key(v) if v > 2
+				end
+				@repeted_hours 
+			
+
+
+			
+
+			# puts "hash tweets per days for the last 20 days-----------"
+			
+			@tweet_count_per_day = Hash[ @tweets_last_20_days.group_by_day { |u| u.created_at.dup.utc.strftime("%Y-%m-%d") }.map { |k, v| ["#{k}", v.size] } ]
+			
+
+
+			# puts "hash of last 20 days--------------"
 				
-			@range_of_dates = (1.month.ago.to_date..Date.today).map{ |date| date.strftime("%Y-%m-%d") }
+			range_of_dates = (3.week.ago.to_date..Date.today).map{ |date| date.strftime("%Y-%m-%d") }
 			hash_date = {}
-			@range_of_dates.each do |date|
+			range_of_dates.each do |date|
 				hash_date[date] = nil
-			end
-			puts @hash_date
+			end	
+			hash_date
 				
 
-			puts "merged hash with new values-------------"
-			new_hash_tweets =  hash_date.merge(@tweet_count_per_day)
-			puts new_hash_tweets
-			
-
-			puts "final array of values on 30 days.........."
+			# puts "merged hash with new values-------------"
+			new_hash_tweets = hash_date.merge(@tweet_count_per_day)
+			# puts "final array of values on last 20 days.........."
 			@array_of_values = []
 			new_hash_tweets.each_value do |value|
 				if value == nil
@@ -60,24 +69,22 @@ class PageController < ApplicationController
 				end
 				@array_of_values << value
 			end
-		
+			@array_of_values
 
-			puts @array_of_values.inspect
-
-	 		else
-				redirect_to root_path
-			end
+	 	else
+			redirect_to root_path
 		end
+	end
 
 	private
 
 
-	def check_tweet_last_30_days(tweets)
+	def check_tweet_last_20_days(tweets)
 		date_today = Date.today
-		last_thirty_days = date_today - 30
+		last_thirty_days = date_today - 20
 		tweets_last_thirty_days = []
 		tweets.each do |tweet|
-			tweet_date = tweet.created_at.strftime("%Y-%m-%d")
+			tweet_date = tweet.created_at.to_s
 			if Date.parse(tweet_date) >= last_thirty_days 
 				tweets_last_thirty_days << tweet
 			end
@@ -88,12 +95,12 @@ class PageController < ApplicationController
 
 	def check_tweet_hours(tweets)
 		date_today = Date.today
-		last_thirty_days = date_today - 30
+		last_thirty_days = date_today - 20
 		hours = []
 		tweets.each do |tweet|
-			tweet_date = tweet.created_at.strftime("%Y-%m-%d")
+			tweet_date = tweet.created_at.to_s
 			if Date.parse(tweet_date) >= last_thirty_days 
-				hours << tweet.created_at.strftime("%H:%M %P")
+				hours << tweet.created_at.strftime('%H:%M %P')
 			end
 		end
 		hours
