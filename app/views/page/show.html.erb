@@ -9,6 +9,12 @@
               <p>Username : <%= @user.screen_name %></p>
               <p>Account created at: <%= @account_creation.strftime("%Y-%m-%d") %></p>
               <p>Nomber of tweets: <%= @tweets_last_20_days.count %></p>
+              <p><% if @tweets_last_20_days.empty? %>
+                    Number of tweet per day : 0
+                 <% else %>
+                    Number of tweets per day: <%= @tweets_rate %>
+                 <% end %>
+              </p>
               <p><% unless @repeted_hours.empty? %>
                     <% @repeted_hours.each do |hour| %>
                       Repeted hours: <%= hour %>

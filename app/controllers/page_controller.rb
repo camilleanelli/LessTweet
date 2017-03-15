@@ -22,9 +22,13 @@ class PageController < ApplicationController
 			@tweets = @client.user_timeline(@user, count: 200)
 			@account_creation = @user.created_at
 
+
 			# "tweets of last 20 days---------------"
 			@tweets_last_20_days = check_tweet_last_20_days(@tweets)
-		
+			
+			# mmedium rate of tweets per days
+
+			@tweets_rate = @tweets_last_20_days.count / 20
 			
 			# "Hours of tweets for the last 20 days"
 			hours = check_tweet_hours(@tweets)
