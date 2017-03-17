@@ -26,7 +26,7 @@ class PageController < ApplicationController
 			# "tweets of last 20 days---------------"
 			@tweets_last_20_days = check_tweet_last_20_days(@tweets)
 			
-			# mmedium rate of tweets per days
+			# medium rate of tweets per days
 
 			@tweets_rate = @tweets_last_20_days.count / 20
 			
@@ -43,17 +43,13 @@ class PageController < ApplicationController
 				end
 				@repeted_hours 
 			
-
-
-			
-
-			# puts "hash tweets per days for the last 20 days-----------"
+			# hash tweets per days for the last 20 days-----------"
 			
 			@tweet_count_per_day = Hash[ @tweets_last_20_days.group_by_day { |u| u.created_at.dup.utc.strftime("%Y-%m-%d") }.map { |k, v| ["#{k}", v.size] } ]
 			
 
 
-			# puts "hash of last 20 days--------------"
+			# hash of last 20 days"
 				
 			range_of_dates = (3.week.ago.to_date..Date.today).map{ |date| date.strftime("%Y-%m-%d") }
 			hash_date = {}

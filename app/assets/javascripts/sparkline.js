@@ -358,7 +358,7 @@
             'top: 0px;' +
             'visibility: hidden;' +
             'background: rgb(0, 0, 0) transparent;' +
-            'background-color: rgba(0,0,0,0.6);' +
+            'background-color: transparent;' +
             'filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);' +
             '-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";' +
             'color: white;' +
@@ -366,7 +366,6 @@
             'text-align: left;' +
             'white-space: nowrap;' +
             'padding: 5px;' +
-            'border: 1px solid white;' +
             'z-index: 10000;' +
             '}' +
             '.jqsfield { ' +

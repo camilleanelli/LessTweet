@@ -36,12 +36,12 @@
         <div class="card-block graphique">
           
           <% if @tweets_last_20_days.empty? %>
-            <h1>No tweets during the last 20 days ! </h1>
+            <h2>No tweets during the last 20 days ! </h2>
           <% elsif @tweets_last_20_days.count == 30 %>
-            <h1>This person may be a serial tweeter ...</h1>
+            <h2>This person may be a serial tweeter ...</h2>
              <span class="dynamicbar"></span>
           <% else %>
-            <h1>Tweets on the last 20 days</h1>
+            <h2>Tweets on the last 20 days</h2>
             <span class="dynamicbar"></span>
           <% end %>
         </div>
@@ -68,7 +68,7 @@ $(function() {
         '6:': '#CF000F'
     })
    	/* The second argument gives options such as chart type */
-    $('.dynamicbar').sparkline(myvalues, {type: 'bar', height: '200px', barWidth: '15px', colorMap: range_map, tooltipFormat: $.spformat('{{value}}', 'tooltip-class')} );
+    $('.dynamicbar').sparkline(myvalues, {type: 'bar', height: '100px', barWidth: '15px', colorMap: range_map, tooltipFormat: $.spformat('{{value}}', 'tooltip-class')} );
 
     
 });
