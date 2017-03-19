@@ -5,7 +5,7 @@
       <div class="card margin-card">
         <div class="card-block">
           <div class="row">
-                <div class="col-sm-8">
+            <div class="col-lg-8">
             <dl class="row">
               <dt class="col-sm-6">Account created at:</dt>
               <dd class="col-sm-6"><%= @account_creation.strftime("%Y-%m-%d") %></dd>
@@ -32,7 +32,7 @@
               <% end %>
             </dl>
           </div>
-          <div class="col-sm-4">
+          <div class="col-lg-4">
              <div class="row text-right">
               <%= image_tag(@user.profile_image_url(size = :original).to_s, size: "150", class:"center") %> 
             </div>
