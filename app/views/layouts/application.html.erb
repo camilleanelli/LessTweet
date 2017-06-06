@@ -9,10 +9,9 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-inverse bg-inverse">
-      <div class="row">
-
-        <%= link_to 'LessTweet', root_path, class:"navbar-brand mx-auto" %>
+    <nav class="navbar color-tweet">
+      <div class="row text-center">
+        <h1><%= link_to 'LessTweet', root_path %></h1>
       </div>
     </nav>
     <br>
@@ -23,12 +22,12 @@
       <%= yield %>
     </section>
     <script type="text/javascript">
-      $(document).ready(function(){       
+      $(document).ready(function(){
         var scroll_start = 0;
         var startchange = $('#startchange');
         var offset = startchange.offset();
         if (startchange.length){
-          $(document).scroll(function() { 
+          $(document).scroll(function() {
             scroll_start = $(this).scrollTop();
           if(scroll_start > offset.top) {
           $(".navbar").css('background-color: white');
