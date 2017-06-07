@@ -33,7 +33,8 @@ class PageController < ApplicationController
 			hours = check_tweet_hours(@tweets)
 			hash_hours = Hash.new(0)
 			hours.each { |e| hash_hours[e] += 1 }
-			puts hash_hours
+			# puts hash_hours
+			# puts @tweets_last_20_days
 
 			# repeted hours > 2
 				@repeted_hours = []

@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .tooltip-class {
-	background-color: #3FC380 !important;
+	background-color: #1da1f2 !important;
 	width: 50px;
 	height: 50px;
 	border-radius: 50px;
@@ -13,6 +13,15 @@
 
 .margin-card {
 	margin-top: 50px;
+}
+
+
+
+.form-control {
+	border-radius: 50px;
+	padding: 10px;
+	border: 2px solid #1da1f2;
+	width: 100%;
 }
 
 .center {
@@ -52,18 +61,12 @@ body {
 
 
 .call-to-action {
-	margin-top: 100px;
-	width: 100%;
-	padding: 5px;
-	border: 2px solid black;
-	border-radius: 100px;
-	color: black;
-	background-color: transparent;
-
-
+	border: 2px solid #1da1f2;
+	border-radius: 50px;
+	color: white;
+	background-color: #1da1f2 ;
 	&:hover {
-		color: white;
-		background-color: black;
+		color: #F5F5F5;
 	}
 }
 

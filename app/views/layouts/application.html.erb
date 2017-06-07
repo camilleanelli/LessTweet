@@ -10,34 +10,14 @@
 
   <body>
     <nav class="navbar color-tweet">
-      <div class="row text-center">
-        <h1><%= link_to 'LessTweet', root_path %></h1>
+      <div class="text-center">
+        <h1 class="text-center"><%= link_to 'LessTweet', root_path %></h1>
       </div>
     </nav>
     <br>
     <br>
-    <br>
-    <br>
-    <section id="startchange">
-      <%= yield %>
-    </section>
-    <script type="text/javascript">
-      $(document).ready(function(){
-        var scroll_start = 0;
-        var startchange = $('#startchange');
-        var offset = startchange.offset();
-        if (startchange.length){
-          $(document).scroll(function() {
-            scroll_start = $(this).scrollTop();
-          if(scroll_start > offset.top) {
-          $(".navbar").css('background-color: white');
-       } else {
-          $('.navbar').css('background-color: transparent');
-       }
-    });
-  }
-});
-    </script>
-
+    <div class="container">
+       <%= yield %>
+    </div>
   </body>
 </html>
