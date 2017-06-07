@@ -68,6 +68,10 @@ body {
 	&:hover {
 		color: #F5F5F5;
 	}
+	&:focus {
+		outline: none;
+		border: 2px solid #F5F5F5;
+	}
 }
 
 .tooltip-class {
